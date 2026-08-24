@@ -14,9 +14,26 @@
 
 body {
   min-height: 100vh;
-  background: #000;
+
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(120, 60, 255, 0.35),
+      transparent 30%
+    ),
+    radial-gradient(circle at 80% 30%, rgba(0, 140, 255, 0.3), transparent 30%),
+    radial-gradient(
+      circle at 50% 80%,
+      rgba(255, 0, 180, 0.25),
+      transparent 35%
+    ),
+    linear-gradient(135deg, #02000c, #08001c, #000814, #10001f);
+
+  background-attachment: fixed;
 
   font-family: Arial, sans-serif;
+
+  color: #fff;
 }
 
 /* =========================
@@ -31,7 +48,7 @@ body {
 
   transform: translateX(-50%);
 
-  width: min(95%, 500px);
+  width: 340px;
   height: 85px;
 
   display: flex;
@@ -44,28 +61,28 @@ body {
 
   z-index: 1000;
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 /* =========================
-   UL
+   NAVIGATION UL
 ========================= */
 
 .navigation ul {
   position: relative;
 
-  width: 100%;
+  width: 280px;
   height: 100%;
 
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 
-  padding: 0 15px;
+  padding: 0;
 }
 
 /* =========================
-   LI
+   NAVIGATION LI
 ========================= */
 
 .navigation ul li {
@@ -170,20 +187,7 @@ body {
 
   transition-delay: 0.25s;
 }
-.content {
-  padding-top: 150px;
-  text-align: center;
-  color: #fff;
-}
 
-.content h1 {
-  font-size: 60px;
-  color: #fff;
-}
-
-.content p {
-  color: #fff;
-}
 /* =========================
    GLOW
 ========================= */
@@ -226,7 +230,7 @@ body {
   position: absolute;
 
   top: 2px;
-  left: 15px;
+  left: 0;
 
   width: 60px;
   height: 60px;
@@ -300,8 +304,32 @@ body {
   transform: translateX(180px);
 }
 
-.navigation ul li:nth-child(5).active ~ .indicator {
-  transform: translateX(240px);
+/* =========================
+   CONTENT
+========================= */
+
+.content {
+  width: 100%;
+
+  padding-top: 150px;
+
+  text-align: center;
+
+  color: #fff;
+}
+
+.content h1 {
+  font-size: 60px;
+
+  color: #fff;
+
+  margin-bottom: 10px;
+}
+
+.content p {
+  font-size: 18px;
+
+  color: #fff;
 }
 
 /* =========================
@@ -317,7 +345,7 @@ body {
 }
 
 /* =========================
-   RESPONSIVE - MOBILE
+   MOBILE
 ========================= */
 
 @media (max-width: 480px) {
@@ -331,7 +359,7 @@ body {
   }
 
   .navigation ul {
-    padding: 0 8px;
+    width: 260px;
   }
 
   .navigation ul li {
@@ -352,15 +380,36 @@ body {
 
   .navigation ul li a .icon .text {
     top: 48px;
+
     font-size: 10px;
   }
 
-  .indicator {
-    left: 8px;
+  /* Indicator */
 
+  .indicator {
     width: 52px;
     height: 52px;
   }
+
+  .indicator::before {
+    left: -21px;
+
+    width: 23px;
+    height: 23px;
+
+    box-shadow: 12px 14px #fff;
+  }
+
+  .indicator::after {
+    right: -21px;
+
+    width: 23px;
+    height: 23px;
+
+    box-shadow: -12px 14px #fff;
+  }
+
+  /* Indicator position */
 
   .navigation ul li:nth-child(1).active ~ .indicator {
     transform: translateX(0);
@@ -378,7 +427,17 @@ body {
     transform: translateX(156px);
   }
 
-  .navigation ul li:nth-child(5).active ~ .indicator {
-    transform: translateX(208px);
+  /* Content */
+
+  .content {
+    padding-top: 120px;
+  }
+
+  .content h1 {
+    font-size: 40px;
+  }
+
+  .content p {
+    font-size: 15px;
   }
 }
