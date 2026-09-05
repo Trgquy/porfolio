@@ -1,7 +1,7 @@
 const list = document.querySelectorAll(".list");
 
 // =========================
-// THỜI GIAN CHUYỂN TRANG
+// THỜI GIAN CHỜ TRƯỚC KHI CHUYỂN TRANG
 // =========================
 
 const PAGE_DELAY = 400;
@@ -12,7 +12,7 @@ const PAGE_DELAY = 400;
 
 let currentPage = window.location.pathname.split("/").pop().toLowerCase();
 
-// Nếu mở thư mục bằng index.html
+// Nếu URL kết thúc bằng "/"
 if (currentPage === "") {
   currentPage = "index.html";
 }
@@ -51,8 +51,11 @@ list.forEach((item) => {
 
     const href = link.getAttribute("href");
 
+    // Không có link
+    if (!href) return;
+
     // =========================
-    // NÚT #
+    // NÚT href="#"
     // =========================
 
     if (href === "#") {
@@ -68,24 +71,33 @@ list.forEach((item) => {
     }
 
     // =========================
-    // LINK CÓ TRANG THẬT
+    // KIỂM TRA CÓ ĐANG Ở TRANG HIỆN TẠI KHÔNG
     // =========================
 
-    if (href) {
-      // Ngăn chuyển trang ngay lập tức
+    const targetPage = href.split("/").pop().toLowerCase();
+
+    if (targetPage === currentPage) {
       event.preventDefault();
-
-      // Đổi active ngay khi click
-      list.forEach((li) => {
-        li.classList.remove("active");
-      });
-
-      this.classList.add("active");
-
-      // Chờ animation chạy xong rồi mới chuyển trang
-      setTimeout(() => {
-        window.location.href = href;
-      }, PAGE_DELAY);
+      return;
     }
+
+    // =========================
+    // CHUYỂN TRANG CÓ ANIMATION
+    // =========================
+
+    event.preventDefault();
+
+    // Xóa active cũ
+    list.forEach((li) => {
+      li.classList.remove("active");
+    });
+
+    // Active tab mới
+    this.classList.add("active");
+
+    // Chỉ chuyển trang sau khi animation chạy
+    setTimeout(() => {
+      window.location.href = href;
+    }, PAGE_DELAY);
   });
 });
